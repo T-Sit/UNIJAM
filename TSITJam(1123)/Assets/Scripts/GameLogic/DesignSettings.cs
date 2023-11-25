@@ -10,6 +10,10 @@ public class DesignSettings : MonoBehaviour
     public float AccelerationFactor;
     public float DeccelerationFactor;
     public float RotationTime;
+
+    public float FootScanRadius;
+    public LayerMask LayersToStay;
+
     private void Start(){
         if(Instance is null){
             Instance = this;

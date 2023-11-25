@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor.Rendering;
 using UnityEngine;
 
@@ -12,6 +13,7 @@ public class PlayerControl : MonoBehaviour
     private Vector3 _freezedVel;
     private bool _isFreezed;
     private Vector3 _freezedEu;
+    [SerializeField] private Transform _footPoint;
 
     private void Awake()
     {
@@ -55,7 +57,7 @@ public class PlayerControl : MonoBehaviour
 
     private void DoLevelRotation()
     {
-        if (Time.time > _lastLevelRotation + DesignSettings.Instance.RotationTime)
+        if (Time.time > _lastLevelRotation + DesignSettings.Instance.RotationTime && IsGrounded)
         {
             if (Input.GetKey(KeyCode.Q))
             {
@@ -72,11 +74,17 @@ public class PlayerControl : MonoBehaviour
 
     private void DoMovement()
     {
-        if (!_isFreezed)
+        if (!_isFreezed && IsGrounded)
         {
             _rb.AddForce(CalculateMovement(), ForceMode.Force);
         }
     }
+
+    private bool IsGrounded => Physics.OverlapSphere(_footPoint.position,
+                                                     DesignSettings.Instance.FootScanRadius,
+                                                     DesignSettings.Instance.LayersToStay).Length != 0;
+
+
     private Vector3 CalculateMovement()
     {
         float movement = Input.GetAxisRaw("Horizontal") * DesignSettings.Instance.MoveSpeed;

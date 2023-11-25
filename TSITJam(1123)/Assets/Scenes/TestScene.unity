@@ -511,7 +511,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df86162edb3a9ca4a99395e479638c1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MoveSpeed: 20
+  MoveSpeed: 30
   AccelerationFactor: 1
   DeccelerationFactor: 1
   RotationTime: 2
@@ -519,7 +519,7 @@ MonoBehaviour:
   LayersToStay:
     serializedVersion: 2
     m_Bits: 72
-  RotationCoyoteTime: 0.01
+  RotationTimeRange: 0
 --- !u!4 &533841734
 Transform:
   m_ObjectHideFlags: 0

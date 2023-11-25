@@ -5,57 +5,39 @@ using System.Linq;
 using UnityEditor.Rendering;
 using UnityEngine;
 
-public class PlayerControl : MonoBehaviour
+public class PlayerControl : Freezable
 {
-    private Rigidbody _rb;
     private float _lastLevelRotation;
     [SerializeField] private Rotator rotator;
-    private Vector3 _freezedVel;
-    private bool _isFreezed;
     private Vector3 _baseEu = new(0, 0, 0);
     [SerializeField] private Transform _footPoint;
 
-    private void Awake()
+    override protected void Awake()
     {
-        _rb = GetComponent<Rigidbody>();
+        base.Awake();
     }
     void Update()
     {
         DoMovement();
         DoLevelRotation();
     }
-    private void OnEnable()
-    {
-        Rotator.RotationStart += FreezeTime;
-        Rotator.RotationEnd += ReleaseTime;
-    }
-    private void OnDisable()
-    {
-        Rotator.RotationStart -= FreezeTime;
-        Rotator.RotationEnd -= ReleaseTime;
-    }
 
-    private void ReleaseTime()
+
+    override protected void ReleaseTime()
     {
-        _isFreezed = false;
-        _rb.useGravity = true;
+        base.ReleaseTime();
         transform.SetParent(null);
     }
-
-    private void FreezeTime()
+    override protected void FreezeTime()
     {
-        _isFreezed = true;
-        _rb.useGravity = false;
-        _freezedVel = _rb.velocity;
-        // _freezedEu = transform.eulerAngles;
-        _rb.velocity = new(0, 0, 0);
+        base.FreezeTime();
         transform.SetParent(rotator.transform);
     }
 
 
     private void DoLevelRotation()
     {
-        if (!_isFreezed || _lastLevelRotation + DesignSettings.Instance.RotationTime - DesignSettings.Instance.RotationTimeRange<Time.time)
+        if (!_isFreezed || _lastLevelRotation + DesignSettings.Instance.RotationTime - DesignSettings.Instance.RotationTimeRange < Time.time)
         {
             if (Input.GetKey(KeyCode.Q))
             {
@@ -67,8 +49,10 @@ public class PlayerControl : MonoBehaviour
                 _lastLevelRotation = Time.time;
                 rotator.RotateRight();
             }
-        }else{
-        transform.eulerAngles = _baseEu;
+        }
+        else
+        {
+            transform.eulerAngles = _baseEu;
         }
     }
 

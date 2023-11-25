@@ -12,7 +12,7 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] private Rotator rotator;
     private Vector3 _freezedVel;
     private bool _isFreezed;
-    private Vector3 _freezedEu;
+    private Vector3 _baseEu = new(0, 0, 0);
     [SerializeField] private Transform _footPoint;
 
     private void Awake()
@@ -39,9 +39,7 @@ public class PlayerControl : MonoBehaviour
     {
         _isFreezed = false;
         _rb.useGravity = true;
-        _rb.velocity = _freezedVel;
         transform.SetParent(null);
-        transform.eulerAngles = _freezedEu;
     }
 
     private void FreezeTime()
@@ -49,7 +47,7 @@ public class PlayerControl : MonoBehaviour
         _isFreezed = true;
         _rb.useGravity = false;
         _freezedVel = _rb.velocity;
-        _freezedEu = transform.eulerAngles;
+        // _freezedEu = transform.eulerAngles;
         _rb.velocity = new(0, 0, 0);
         transform.SetParent(rotator.transform);
     }
@@ -57,7 +55,7 @@ public class PlayerControl : MonoBehaviour
 
     private void DoLevelRotation()
     {
-        if (Time.time > _lastLevelRotation + DesignSettings.Instance.RotationTime && IsGrounded)
+        if (!_isFreezed || _lastLevelRotation + DesignSettings.Instance.RotationTime - DesignSettings.Instance.RotationTimeRange<Time.time)
         {
             if (Input.GetKey(KeyCode.Q))
             {
@@ -69,6 +67,8 @@ public class PlayerControl : MonoBehaviour
                 _lastLevelRotation = Time.time;
                 rotator.RotateRight();
             }
+        }else{
+        transform.eulerAngles = _baseEu;
         }
     }
 

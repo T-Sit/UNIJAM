@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 102789409}
   - component: {fileID: 102789408}
   - component: {fileID: 102789407}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -358,7 +358,7 @@ GameObject:
   - component: {fileID: 318426576}
   - component: {fileID: 318426575}
   - component: {fileID: 318426574}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: floor (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -515,6 +515,11 @@ MonoBehaviour:
   AccelerationFactor: 1
   DeccelerationFactor: 1
   RotationTime: 2
+  FootScanRadius: 0.01
+  LayersToStay:
+    serializedVersion: 2
+    m_Bits: 72
+  RotationCoyoteTime: 0.01
 --- !u!4 &533841734
 Transform:
   m_ObjectHideFlags: 0
@@ -542,7 +547,7 @@ GameObject:
   - component: {fileID: 754292887}
   - component: {fileID: 754292886}
   - component: {fileID: 754292885}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: floor (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -831,6 +836,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotator: {fileID: 1105726393}
+  _footPoint: {fileID: 463660289}
 --- !u!1 &1557585766
 GameObject:
   m_ObjectHideFlags: 0
@@ -980,7 +986,7 @@ GameObject:
   - component: {fileID: 1936773148}
   - component: {fileID: 1936773147}
   - component: {fileID: 1936773146}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: floor (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

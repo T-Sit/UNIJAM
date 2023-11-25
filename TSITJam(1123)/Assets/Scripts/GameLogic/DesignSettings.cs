@@ -14,6 +14,7 @@ public class DesignSettings : MonoBehaviour
     public float FootScanRadius;
     public LayerMask LayersToStay;
 
+    public float RotationTimeRange;
     private void Start(){
         if(Instance is null){
             Instance = this;

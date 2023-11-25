@@ -18,9 +18,14 @@ public class DesignSettings : MonoBehaviour
     public Vector3 ItemsLocalPosition;
     public float PickUpDistance;
     public LayerMask ItemsLayer;
+    public Vector3 ColliderSizeNewValue;
 
-    private void Start(){
-        if(Instance is null){
+    public Vector3 ColliderShiftNewValue;
+
+    private void Start()
+    {
+        if (Instance is null)
+        {
             Instance = this;
         }
     }

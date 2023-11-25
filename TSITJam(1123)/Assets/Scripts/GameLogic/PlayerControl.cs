@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using DG.Tweening;
 using UnityEditor.Rendering;
 using UnityEngine;
 
@@ -11,17 +12,33 @@ public class PlayerControl : Freezable
     [SerializeField] private Rotator rotator;
     private Vector3 _baseEu = new(0, 0, 0);
     [SerializeField] private Transform _footPoint;
+    private Vector3 _rightRot = new(0, 0, 0);
+    private Vector3 _leftRot = new(0, 180, 0);
+    private PlayerItemController _playerItemController;
 
     override protected void Awake()
     {
         base.Awake();
+        _playerItemController = GetComponent<PlayerItemController>();
     }
     void Update()
     {
         DoMovement();
+        DoPlayerRotation();
+        DoPickUpCheck();
         DoLevelRotation();
     }
 
+    private void DoPickUpCheck()
+    {
+        if (!_isFreezed && IsGrounded)
+        {
+            if (Input.GetKeyDown(KeyCode.Space)){
+                _playerItemController.ParsePickDropButton();
+            }
+        }
+
+    }
 
     override protected void ReleaseTime()
     {
@@ -37,7 +54,7 @@ public class PlayerControl : Freezable
 
     private void DoLevelRotation()
     {
-        if (!_isFreezed&&IsGrounded || _lastLevelRotation + DesignSettings.Instance.RotationTime - DesignSettings.Instance.RotationTimeRange < Time.time)
+        if (!_isFreezed && IsGrounded || _lastLevelRotation + DesignSettings.Instance.RotationTime - DesignSettings.Instance.RotationTimeRange < Time.time)
         {
             if (Input.GetKey(KeyCode.Q))
             {
@@ -56,11 +73,28 @@ public class PlayerControl : Freezable
         }
     }
 
+    private void DoPlayerRotation()
+    {
+        if (!_isFreezed && IsGrounded)
+        {
+            float x = Input.GetAxisRaw("Horizontal");
+            if (x > 0)
+            {
+                transform.eulerAngles = _rightRot;
+            }
+            else if (x < 0)
+            {
+                transform.eulerAngles = _leftRot;
+            }
+        }
+    }
     private void DoMovement()
     {
         if (!_isFreezed && IsGrounded)
         {
-            _rb.AddForce(CalculateMovement(), ForceMode.Force);
+            Vector3 movement = CalculateMovement();
+
+            _rb.AddForce(movement, ForceMode.Force);
         }
     }
 
@@ -74,6 +108,6 @@ public class PlayerControl : Freezable
         float movement = Input.GetAxisRaw("Horizontal") * DesignSettings.Instance.MoveSpeed;
         float speedDif = movement - _rb.velocity.x;
         float accelFactor = Mathf.Abs(movement) > 1e-3f ? DesignSettings.Instance.AccelerationFactor : DesignSettings.Instance.DeccelerationFactor;
-        return accelFactor * speedDif * transform.right;
+        return accelFactor * speedDif * Vector3.right;
     }
 }

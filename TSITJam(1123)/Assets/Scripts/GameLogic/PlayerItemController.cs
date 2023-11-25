@@ -6,34 +6,37 @@ using UnityEngine;
 public class PlayerItemController : MonoBehaviour
 {
     private ItemController _pickedItem;
-    private void Update()
+
+
+    public void ParsePickDropButton()
     {
-        ParsePickDropButton();
+        if (_pickedItem is null)
+        {
+            Pick();
+        }
+        else
+        {
+            Drop();
+        }
     }
 
-    private void ParsePickDropButton()
+    private void Drop()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        _pickedItem.DropDown();
+        _pickedItem = null;
+    }
+
+    private void Pick()
+    {
+        Collider[] col = Physics.OverlapSphere(transform.position, DesignSettings.Instance.PickUpDistance, DesignSettings.Instance.ItemsLayer);
+        foreach (Collider c in col)
         {
-            if (_pickedItem is null)
+            ItemController ic = c.GetComponent<ItemController>();
+            if (ic is not null)
             {
-                Collider[] col = Physics.OverlapSphere(transform.position, DesignSettings.Instance.PickUpDistance, DesignSettings.Instance.ItemsLayer);
-                foreach (Collider c in col)
-                {
-                    Debug.Log("Check");
-                    ItemController ic = c.GetComponent<ItemController>();
-                    if (ic is not null)
-                    {
-                        ic.PickUp(gameObject);
-                        _pickedItem = ic;
-                        break;
-                    }
-                }
-            }
-            else
-            {
-                _pickedItem.DropDown();
-                _pickedItem = null;
+                ic.PickUp(gameObject);
+                _pickedItem = ic;
+                break;
             }
         }
     }

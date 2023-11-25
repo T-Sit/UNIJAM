@@ -26,7 +26,6 @@ public class Freezable : MonoBehaviour
         _isFreezed = false;
         _rb.useGravity = true;
         _rb.velocity = _freezedVel;
-        transform.SetParent(null);
     }
 
     virtual protected void FreezeTime()

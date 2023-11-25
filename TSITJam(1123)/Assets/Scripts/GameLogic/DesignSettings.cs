@@ -15,6 +15,10 @@ public class DesignSettings : MonoBehaviour
     public LayerMask LayersToStay;
 
     public float RotationTimeRange;
+    public Vector3 ItemsLocalPosition;
+    public float PickUpDistance;
+    public LayerMask ItemsLayer;
+
     private void Start(){
         if(Instance is null){
             Instance = this;

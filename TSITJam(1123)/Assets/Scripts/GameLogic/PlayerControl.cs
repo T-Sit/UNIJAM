@@ -1,18 +1,34 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Rendering;
 using UnityEngine;
 
 public class PlayerControl : MonoBehaviour
 {
-    // Start is called before the first frame update
+
     void Start()
     {
-        
+
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        DoMovement();
+        DoLevelRotation();
+    }
+
+    private void DoLevelRotation()
+    {
+        throw new NotImplementedException();
+    }
+
+    private void DoMovement()
+    {
+        transform.Translate(CurrentMovement());
+    }
+    private Vector3 CurrentMovement()
+    {
+        return Time.deltaTime * DesignSettings.Instance.MoveSpeed * new Vector3(Input.GetAxisRaw("Horizontal"), 0, 0);
     }
 }

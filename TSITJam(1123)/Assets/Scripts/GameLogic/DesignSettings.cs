@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class DesignSettings : MonoBehaviour
@@ -9,6 +6,7 @@ public class DesignSettings : MonoBehaviour
     public float MoveSpeed;
     public float AccelerationFactor;
     public float DeccelerationFactor;
+    [Range(-2,0)] public float GravityFactor;
     public float RotationTime;
 
     public float FootScanRadius;

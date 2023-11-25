@@ -1,9 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using DG.Tweening;
-using UnityEditor.Rendering;
 using UnityEngine;
 
 public class PlayerControl : Freezable
@@ -14,6 +8,7 @@ public class PlayerControl : Freezable
     [SerializeField] private Transform _footPoint;
     private Vector3 _rightRot = new(0, 0, 0);
     private Vector3 _leftRot = new(0, 180, 0);
+    private float _yScalingVelocity;
     private PlayerItemController _playerItemController;
 
     override protected void Awake()
@@ -94,11 +89,20 @@ public class PlayerControl : Freezable
     }
     private void DoMovement()
     {
-        if (!_isFreezed && IsGrounded)
+        if (!_isFreezed)
         {
-            Vector3 movement = CalculateMovement();
-
-            _rb.AddForce(movement, ForceMode.Force);
+            if (IsGrounded)
+            {
+                _yScalingVelocity = 0;
+                Vector3 movement = CalculateMovement();
+                _rb.AddForce(movement, ForceMode.Force);
+            }
+            else
+            {
+                float yVelocity = DesignSettings.Instance.GravityFactor;
+                _yScalingVelocity += yVelocity;
+                _rb.velocity = new Vector3(0, _yScalingVelocity, 0);
+            }
         }
     }
 

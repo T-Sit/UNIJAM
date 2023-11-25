@@ -643,6 +643,8 @@ MonoBehaviour:
   ItemsLayer:
     serializedVersion: 2
     m_Bits: 64
+  MinPickupAngle: -50
+  MaxPickupAngle: 50
 --- !u!4 &533841734
 Transform:
   m_ObjectHideFlags: 0

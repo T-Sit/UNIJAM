@@ -7,6 +7,7 @@ public class DesignSettings : MonoBehaviour
 {
     static public DesignSettings Instance;
     public float MoveSpeed;
+    public float RotationTime;
     private void Start(){
         if(Instance is null){
             Instance = this;

@@ -10,10 +10,11 @@ public class PlayerControl : MonoBehaviour
     private float _lastLevelRotation;
     [SerializeField] private Rotator rotator;
     private Vector3 _freezedVel;
+    private bool _isFreezed;
+    private Vector3 _freezedEu;
 
     private void Awake()
     {
-        // _rotator = transform.parent.GetComponent<Rotator>();
         _rb = GetComponent<Rigidbody>();
     }
     void Update()
@@ -23,28 +24,32 @@ public class PlayerControl : MonoBehaviour
     }
     private void OnEnable()
     {
-        Rotator.RotationStart += FreezeGravity;
-        Rotator.RotationEnd += ReleaseGravity;
+        Rotator.RotationStart += FreezeTime;
+        Rotator.RotationEnd += ReleaseTime;
     }
     private void OnDisable()
     {
-        Rotator.RotationStart -= FreezeGravity;
-        Rotator.RotationEnd -= ReleaseGravity;
+        Rotator.RotationStart -= FreezeTime;
+        Rotator.RotationEnd -= ReleaseTime;
     }
 
-    private void ReleaseGravity()
+    private void ReleaseTime()
     {
-        Debug.Log("Release");
+        _isFreezed = false;
         _rb.useGravity = true;
         _rb.velocity = _freezedVel;
+        transform.SetParent(null);
+        transform.eulerAngles = _freezedEu;
     }
 
-    private void FreezeGravity()
+    private void FreezeTime()
     {
-        Debug.Log("Freeze");
+        _isFreezed = true;
         _rb.useGravity = false;
         _freezedVel = _rb.velocity;
+        _freezedEu = transform.eulerAngles;
         _rb.velocity = new(0, 0, 0);
+        transform.SetParent(rotator.transform);
     }
 
 
@@ -67,8 +72,16 @@ public class PlayerControl : MonoBehaviour
 
     private void DoMovement()
     {
-        transform.Translate(CurrentMovement);
+        if (!_isFreezed)
+        {
+            _rb.AddForce(CalculateMovement(), ForceMode.Force);
+        }
     }
-    private Vector3 CurrentMovement => DesignSettings.Instance.MoveSpeed * new Vector3(Input.GetAxisRaw("Horizontal"), 0, 0);
-
+    private Vector3 CalculateMovement()
+    {
+        float movement = Input.GetAxisRaw("Horizontal") * DesignSettings.Instance.MoveSpeed;
+        float speedDif = movement - _rb.velocity.x;
+        float accelFactor = Mathf.Abs(movement) > 1e-3f ? DesignSettings.Instance.AccelerationFactor : DesignSettings.Instance.DeccelerationFactor;
+        return accelFactor * speedDif * transform.right;
+    }
 }

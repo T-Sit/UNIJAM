@@ -480,7 +480,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df86162edb3a9ca4a99395e479638c1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MoveSpeed: 10
+  MoveSpeed: 20
+  AccelerationFactor: 1
+  DeccelerationFactor: 1
   RotationTime: 2
 --- !u!4 &533841734
 Transform:
@@ -1046,5 +1048,5 @@ SceneRoots:
   - {fileID: 1557585769}
   - {fileID: 533841734}
   - {fileID: 174614873}
-  - {fileID: 1234426288}
   - {fileID: 1105726392}
+  - {fileID: 1234426288}

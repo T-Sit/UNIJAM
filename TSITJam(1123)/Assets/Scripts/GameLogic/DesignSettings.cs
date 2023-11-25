@@ -18,10 +18,8 @@ public class DesignSettings : MonoBehaviour
     public Vector3 ItemsLocalPosition;
     public float PickUpDistance;
     public LayerMask ItemsLayer;
-    public Vector3 ColliderSizeNewValue;
-
-    public Vector3 ColliderShiftNewValue;
-
+    public float MinPickupAngle;
+    public float MaxPickupAngle;
     private void Start()
     {
         if (Instance is null)

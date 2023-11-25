@@ -3,15 +3,18 @@ using UnityEngine;
 
 public class FMODEvents : MonoBehaviour
 {
-    [field: Header("Ambience")]
-    [field: SerializeField] public EventReference WindAmbience { get; private set; }
-
     [field: Header("Music")]
     [field: SerializeField] public EventReference Lvl1Music { get; private set; }
+    [field: SerializeField] public EventReference Lvl2Music { get; private set; }
+    [field: SerializeField] public EventReference Lvl3Music { get; private set; }
+    [field: SerializeField] public EventReference Lvl4Music { get; private set; }
+    [field: SerializeField] public EventReference Lvl5Music { get; private set; }
 
-    [field: Header("VFX")]
-    [field: SerializeField] public EventReference LaserShoot { get; private set; }
+    [field: Header("SFX")]
+    [field: SerializeField] public EventReference LvlRotation { get; private set; }
     [field: SerializeField] public EventReference FootSteps { get; private set; }
+    [field: SerializeField] public EventReference PlayerDeath { get; private set; }
+    [field: SerializeField] public EventReference PlayerFall { get; private set; }
 
     public static FMODEvents Instance { get; private set; }
 

@@ -1,3 +1,4 @@
+using FMOD.Studio;
 using UnityEngine;
 
 public class PlayerControl : Freezable
@@ -11,10 +12,16 @@ public class PlayerControl : Freezable
     private float _yScalingVelocity;
     private PlayerItemController _playerItemController;
 
+    private const float c_CheckNotZeroVelocity = 0.1f;
+    private const float c_GroundPredictionDelay = 0.2f;
+    private float _groundPredictionTiming;
+    private EventInstance _playerFootsteps;
+
     override protected void Awake()
     {
         base.Awake();
         _playerItemController = GetComponent<PlayerItemController>();
+        _playerFootsteps = AudioManager.Instance.CreateEventInstance(FMODEvents.Instance.FootSteps);
     }
     void Update()
     {
@@ -22,6 +29,8 @@ public class PlayerControl : Freezable
         DoPlayerRotation();
         DoPickUpCheck();
         DoLevelRotation();
+        PredictGroundFall();
+        UpdateSound();
     }
 
     private void DoPickUpCheck()
@@ -87,6 +96,7 @@ public class PlayerControl : Freezable
             }
         }
     }
+
     private void DoMovement()
     {
         if (!_isFreezed)
@@ -110,12 +120,45 @@ public class PlayerControl : Freezable
                                                      DesignSettings.Instance.FootScanRadius,
                                                      DesignSettings.Instance.LayersToStay).Length != 0;
 
-
     private Vector3 CalculateMovement()
     {
         float movement = Input.GetAxisRaw("Horizontal") * DesignSettings.Instance.MoveSpeed;
         float speedDif = movement - _rb.velocity.x;
         float accelFactor = Mathf.Abs(movement) > 1e-3f ? DesignSettings.Instance.AccelerationFactor : DesignSettings.Instance.DeccelerationFactor;
         return accelFactor * speedDif * Vector3.right;
+    }
+
+    private void UpdateSound()
+    {
+        if (_isFreezed)
+        {
+            _playerFootsteps.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+            return;
+        }
+
+        if (Mathf.Abs(_rb.velocity.x) >= c_CheckNotZeroVelocity && IsGrounded)
+        {
+            PLAYBACK_STATE playbackState;
+            _playerFootsteps.getPlaybackState(out playbackState);
+            if (playbackState.Equals(PLAYBACK_STATE.STOPPED))
+            {
+                float randomPitchValue = Random.Range(-15, 15);
+                _playerFootsteps.setParameterByName("RandomPitch", randomPitchValue);
+                _playerFootsteps.start();
+            }
+        }
+        else
+        {
+            _playerFootsteps.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        }
+    }
+
+    private void PredictGroundFall()
+    {
+        if (_rb.velocity.y < -c_CheckNotZeroVelocity && IsGrounded && (Time.time - _groundPredictionTiming >= c_GroundPredictionDelay))
+        {
+            _groundPredictionTiming = Time.time;
+            AudioManager.Instance.PlayOneShot(FMODEvents.Instance.PlayerFall);
+        } 
     }
 }

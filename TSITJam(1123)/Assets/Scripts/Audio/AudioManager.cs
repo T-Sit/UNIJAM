@@ -40,17 +40,17 @@ public class AudioManager : MonoBehaviour
             Instance = this;
         }
 
-        masterBus = RuntimeManager.GetBus("bus:/");
-        musicBus = RuntimeManager.GetBus("bus:/Music");
-        ambienceBus = RuntimeManager.GetBus("bus:/Ambience");
-        VFXBus = RuntimeManager.GetBus("bus:/VFX");
+        //masterBus = RuntimeManager.GetBus("bus:/");
+        //musicBus = RuntimeManager.GetBus("bus:/Music");
+        //ambienceBus = RuntimeManager.GetBus("bus:/Ambience");
+        //VFXBus = RuntimeManager.GetBus("bus:/VFX");
         eventInstances = new List<EventInstance>();
             
     }
 
     private void Start()
     {
-        InitilizeAmbience(FMODEvents.Instance.WindAmbience);
+        //InitilizeAmbience(FMODEvents.Instance.WindAmbience);
         InitilizeMusic(FMODEvents.Instance.Lvl1Music);
     }
 
@@ -60,6 +60,16 @@ public class AudioManager : MonoBehaviour
         musicBus.setVolume(musicVolume);
         ambienceBus.setVolume(ambienceVolume);
         VFXBus.setVolume(vfxVolume);
+    }
+
+    private void OnEnable()
+    {
+        Rotator.RotationStart += PlayLevelRotation;
+    }
+
+    private void OnDisable()
+    {
+        Rotator.RotationStart -= PlayLevelRotation;
     }
 
     private void OnDestroy()
@@ -79,19 +89,18 @@ public class AudioManager : MonoBehaviour
         musicEventInstance.start();
     }
 
-    public void SetAmbienceParameter(string parametrName, float parametrValue)
+    private void CleanEventInstances()
     {
-        ambienceEventInstance.setParameterByName(parametrName, parametrValue);
+        foreach (EventInstance eventInstance in eventInstances)
+        {
+            eventInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+            eventInstance.release();
+        }
     }
 
-    public void SetMusicArea(MusicArea musicArea)
+    public void PlayOneShot(EventReference sound)
     {
-        musicEventInstance.setParameterByName("area", (float)musicArea);
-    }
-
-    public void PlayOneShot(EventReference sound, Vector3 playFrom)
-    {
-        RuntimeManager.PlayOneShot(sound, playFrom);
+        RuntimeManager.PlayOneShot(sound);
     }
 
     public EventInstance CreateEventInstance(EventReference eventReference)
@@ -101,12 +110,6 @@ public class AudioManager : MonoBehaviour
         return eventInstance;
     }
 
-    private void CleanEventInstances()
-    {
-        foreach (EventInstance eventInstance in eventInstances)
-        {
-            eventInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
-            eventInstance.release();
-        }
-    }
+    private void PlayLevelRotation()
+        => PlayOneShot(FMODEvents.Instance.LvlRotation);
 }

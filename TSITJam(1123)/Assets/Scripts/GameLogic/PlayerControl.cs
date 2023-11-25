@@ -37,7 +37,7 @@ public class PlayerControl : Freezable
 
     private void DoLevelRotation()
     {
-        if (!_isFreezed || _lastLevelRotation + DesignSettings.Instance.RotationTime - DesignSettings.Instance.RotationTimeRange < Time.time)
+        if (!_isFreezed&&IsGrounded || _lastLevelRotation + DesignSettings.Instance.RotationTime - DesignSettings.Instance.RotationTimeRange < Time.time)
         {
             if (Input.GetKey(KeyCode.Q))
             {

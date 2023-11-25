@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class PlayerItemController : MonoBehaviour
 {
@@ -32,12 +33,19 @@ public class PlayerItemController : MonoBehaviour
         foreach (Collider c in col)
         {
             ItemController ic = c.GetComponent<ItemController>();
-            if (ic is not null)
+            if (ic is not null && CanPickUp(c))
             {
                 ic.PickUp(gameObject);
                 _pickedItem = ic;
                 break;
             }
         }
+    }
+    private bool CanPickUp(Collider c)
+    {
+        Vector3 p = c.transform.position - transform.position;
+        return Mathf.Tan(Mathf.Deg2Rad * DesignSettings.Instance.MinPickupAngle) <= p.y / p.x
+               && Mathf.Tan(Mathf.Deg2Rad * DesignSettings.Instance.MaxPickupAngle) >= p.y / p.x
+               && p.x * transform.forward.x >= 0;
     }
 }

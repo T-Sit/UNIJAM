@@ -33,7 +33,8 @@ public class PlayerControl : Freezable
     {
         if (!_isFreezed && IsGrounded)
         {
-            if (Input.GetKeyDown(KeyCode.Space)){
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
                 _playerItemController.ParsePickDropButton();
             }
         }
@@ -54,7 +55,10 @@ public class PlayerControl : Freezable
 
     private void DoLevelRotation()
     {
-        if (!_isFreezed && IsGrounded || _lastLevelRotation + DesignSettings.Instance.RotationTime - DesignSettings.Instance.RotationTimeRange < Time.time)
+        if ((IsGrounded
+            && !_isFreezed)
+            || (Time.time <= _lastLevelRotation  + DesignSettings.Instance.RotationTime+ DesignSettings.Instance.RotationTimeRange/2
+            && Time.time >= _lastLevelRotation + DesignSettings.Instance.RotationTime-+ DesignSettings.Instance.RotationTimeRange/2))
         {
             if (Input.GetKey(KeyCode.Q))
             {

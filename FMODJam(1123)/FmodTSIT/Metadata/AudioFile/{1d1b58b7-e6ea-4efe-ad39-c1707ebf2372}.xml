@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{1d1b58b7-e6ea-4efe-ad39-c1707ebf2372}">
+		<property name="assetPath">
+			<value>SFX/unijam_Voice.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>0.41666666666666669</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{200ab08d-09ff-4043-b199-16b1a105381c}</destination>
+		</relationship>
+	</object>
+</objects>

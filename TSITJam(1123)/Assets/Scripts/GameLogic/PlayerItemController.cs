@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class PlayerItemController : MonoBehaviour
 {
@@ -43,6 +39,7 @@ public class PlayerItemController : MonoBehaviour
     }
     private bool CanPickUp(Collider c)
     {
+        Debug.Log("kek");
         Vector3 p = c.transform.position - transform.position;
         return Mathf.Tan(Mathf.Deg2Rad * DesignSettings.Instance.MinPickupAngle) <= p.y / p.x
                && Mathf.Tan(Mathf.Deg2Rad * DesignSettings.Instance.MaxPickupAngle) >= p.y / p.x

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{d6f80c19-6b90-4a1d-9378-85b65cf360fb}">
+		<property name="assetPath">
+			<value>SFX/unijam_Rotate_8.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>0.5357142857142857</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{200ab08d-09ff-4043-b199-16b1a105381c}</destination>
+		</relationship>
+	</object>
+</objects>

@@ -8,7 +8,6 @@ public class AmbienceChangeTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == ("Player"))
-            AudioManager.Instance.SetAmbienceParameter(parametrName, parametrValue);
+        
     }
 }

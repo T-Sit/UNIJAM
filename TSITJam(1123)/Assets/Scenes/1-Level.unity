@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17903988, g: 0.21851942, b: 0.27333325, a: 1}
+  m_IndirectSpecularColor: {r: 0.17903961, g: 0.21851918, b: 0.2733326, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -11729,13 +11729,13 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 72
   RotationTimeRange: 0.3
-  ItemsLocalPosition: {x: 1.25, y: 0, z: 0}
+  ItemsLocalPosition: {x: 0, y: 0, z: 1.25}
   PickUpDistance: 1
   ItemsLayer:
     serializedVersion: 2
     m_Bits: 64
-  MinPickupAngle: 0
-  MaxPickupAngle: 0
+  MinPickupAngle: -50
+  MaxPickupAngle: 50
 --- !u!4 &1473537989
 Transform:
   m_ObjectHideFlags: 0
@@ -17667,6 +17667,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1952219488472916969, guid: b47d70cb82996d1469fedde2853929a4,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 120
+      objectReference: {fileID: 0}
     - target: {fileID: 5030036848128362765, guid: b47d70cb82996d1469fedde2853929a4,
         type: 3}
       propertyPath: rotator

@@ -7,6 +7,7 @@ public class ExitLevel : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
+            AudioManager.Instance.PlayOneShot(FMODEvents.Instance.PlayerFall);
             LoadScene();
     }
 

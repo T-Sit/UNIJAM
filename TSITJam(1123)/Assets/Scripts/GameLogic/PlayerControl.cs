@@ -1,4 +1,5 @@
 using FMOD.Studio;
+using FMODUnity;
 using UnityEngine;
 
 public class PlayerControl : Freezable
@@ -15,13 +16,13 @@ public class PlayerControl : Freezable
     private const float c_CheckNotZeroVelocity = 0.1f;
     private const float c_GroundPredictionDelay = 0.2f;
     private float _groundPredictionTiming;
-    private EventInstance _playerFootsteps;
+    private EventInstance _playerWalk;
 
     override protected void Awake()
     {
         base.Awake();
         _playerItemController = GetComponent<PlayerItemController>();
-        _playerFootsteps = AudioManager.Instance.CreateEventInstance(FMODEvents.Instance.FootSteps);
+        _playerWalk = AudioManager.Instance.CreateEventInstance(FMODEvents.Instance.FootSteps);
     }
     void Update()
     {
@@ -132,26 +133,29 @@ public class PlayerControl : Freezable
     {
         if (_isFreezed)
         {
-            _playerFootsteps.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+            StopFootsteps();
             return;
         }
 
         if (Mathf.Abs(_rb.velocity.x) >= c_CheckNotZeroVelocity && IsGrounded)
         {
             PLAYBACK_STATE playbackState;
-            _playerFootsteps.getPlaybackState(out playbackState);
+            _playerWalk.getPlaybackState(out playbackState);
             if (playbackState.Equals(PLAYBACK_STATE.STOPPED))
             {
                 float randomPitchValue = Random.Range(-15, 15);
-                _playerFootsteps.setParameterByName("RandomPitch", randomPitchValue);
-                _playerFootsteps.start();
+                _playerWalk.setParameterByName("RandomPitch", randomPitchValue);
+                _playerWalk.start();
             }
         }
         else
         {
-            _playerFootsteps.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+            StopFootsteps();
         }
     }
+
+    public void StopFootsteps() 
+        => _playerWalk.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
 
     private void PredictGroundFall()
     {
@@ -161,4 +165,5 @@ public class PlayerControl : Freezable
             AudioManager.Instance.PlayOneShot(FMODEvents.Instance.PlayerFall);
         } 
     }
+
 }

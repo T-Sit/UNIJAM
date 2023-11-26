@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.02.00">
 	<object class="Event" id="{c7fa531e-25c3-4133-bfd7-a4723b5863dd}">
 		<property name="name">
-			<value>PLayerFootsteps</value>
+			<value>Footsteps</value>
 		</property>
 		<property name="outputFormat">
 			<value>1</value>
@@ -101,7 +101,7 @@
 	</object>
 	<object class="SingleSound" id="{edbdd00d-269b-49f8-a81b-09c865a3ec06}">
 		<property name="length">
-			<value>0.33333333333333331</value>
+			<value>0.35999999999999999</value>
 		</property>
 		<relationship name="automators">
 			<destination>{f6b63632-ec9f-4372-b2df-9594371785ee}</destination>
@@ -129,7 +129,7 @@
 			<value>0</value>
 		</property>
 		<property name="length">
-			<value>0.33333333333333331</value>
+			<value>0.35999999999999999</value>
 		</property>
 		<relationship name="timeline">
 			<destination>{acf204e6-ebf0-4e88-9eec-ff998be3cb2a}</destination>

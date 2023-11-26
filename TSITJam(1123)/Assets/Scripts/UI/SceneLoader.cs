@@ -1,3 +1,5 @@
+using DG.Tweening;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -12,6 +14,9 @@ public class SceneLoader : MonoBehaviour
 
     public void RestartLevel()
     {
-        SceneManager.LoadScene(_currentLevel);
+        DG.Tweening.Sequence s = DOTween.Sequence();
+        s.Append(transform.DOScale(DesignSettings.Instance.ButtonClickedScale, DesignSettings.Instance.ButtonClickScalingTime / 2));
+        s.Append(transform.DOScale(1, DesignSettings.Instance.ButtonClickScalingTime / 2));
+        s.AppendCallback(() => { SceneManager.LoadScene(_currentLevel); });
     }
 }

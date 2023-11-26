@@ -9,7 +9,6 @@ public class DesignSettings : MonoBehaviour
     [Range(-2,0)] public float GravityFactor;
     public float RotationTime;
 
-    public float FootScanRadius;
     public LayerMask LayersToStay;
 
     public float RotationTimeRange;

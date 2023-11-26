@@ -211,8 +211,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a62bc7a5003b3114a918239c3fd795bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  FootScanHalfBox: {x: 0.785, y: 0.01, z: 1}
+  FootpointShift: {x: 0, y: -1.81, z: 0}
   rotator: {fileID: 0}
-  _footPoint: {fileID: 2754334599117310517}
 --- !u!114 &6370089907267864425
 MonoBehaviour:
   m_ObjectHideFlags: 0

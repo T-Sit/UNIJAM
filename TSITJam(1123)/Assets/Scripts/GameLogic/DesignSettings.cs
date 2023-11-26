@@ -18,6 +18,8 @@ public class DesignSettings : MonoBehaviour
     public float MinPickupAngle;
     public float MaxPickupAngle;
     public float DialogueWindowAppearingTime;
+    public float ButtonClickedScale;
+    public float ButtonClickScalingTime;
     private void Start()
     {
         if (Instance is null)

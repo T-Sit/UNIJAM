@@ -5,7 +5,7 @@ public class PlayerControl : Freezable
 {
     private float _lastLevelRotation;
     [SerializeField] private Rotator rotator;
-    private Vector3 _baseEu = new(0, 0, 0);
+    private Vector3 _baseEu = new(0, 180, 0);
     [SerializeField] private Transform _footPoint;
     private Vector3 _rightRot = new(0, 90, 0);
     private Vector3 _leftRot = new(0, -90, 0);

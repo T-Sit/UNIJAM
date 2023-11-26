@@ -4,7 +4,7 @@ using UnityEngine;
 public class FMODEvents : MonoBehaviour
 {
     [field: Header("Music")]
-    [field: SerializeField] public EventReference Lvl1Music { get; private set; }
+    [field: SerializeField] public EventReference LvlMusic { get; private set; }
 
     [field: Header("SFX")]
     [field: SerializeField] public EventReference LvlRotation { get; private set; }

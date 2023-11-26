@@ -260,8 +260,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2.107185, y: 2.1671047, z: 2.1816838}
-  m_Center: {x: 0.0086324215, y: -0.009655952, z: -0.017204642}
+  m_Size: {x: 2.2019796, y: 2.223982, z: 2.1816838}
+  m_Center: {x: -0.00084733963, y: 0.018782735, z: -0.017204642}
 --- !u!114 &6606682048599990374
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -276,6 +276,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FootScanHalfBox: {x: 1.06, y: 0.01, z: 1}
   FootpointShift: {x: 0, y: -1.09, z: 0}
+  IsBounced: 0
   _groundChecker: {fileID: 7311804617782952429}
 --- !u!54 &6677648222049863337
 Rigidbody:

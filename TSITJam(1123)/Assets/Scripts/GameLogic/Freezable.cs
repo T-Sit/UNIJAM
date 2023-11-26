@@ -1,10 +1,11 @@
+using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Freezable : MonoBehaviour
 {
     [SerializeField] protected Vector3 FootScanHalfBox;
     [SerializeField] protected Vector3 FootpointShift;
+    public bool IsBounced = false;
     protected bool _isFreezed;
     protected Rigidbody _rb;
     protected Vector3 _freezedVel;
@@ -72,7 +73,23 @@ public class Freezable : MonoBehaviour
     virtual protected void Update()
     {
         ApplyGravity();
+        UnsetBounce();
+        ApplyJump();
     }
+
+    private void ApplyJump()
+    {
+        if (!_isFreezed)
+        {
+            if (IsBounced)
+            {
+                float yVelocity = DesignSettings.Instance.JumpFactor;
+                _yScalingVelocity += yVelocity;
+                _rb.velocity = new Vector3(0, _yScalingVelocity, 0);
+            }
+        }
+    }
+
     virtual protected void ApplyGravity()
     {
         if (!_isFreezed)
@@ -87,4 +104,17 @@ public class Freezable : MonoBehaviour
             }
         }
     }
+
+    private void UnsetBounce()
+    {
+        if (_rb.velocity.y > 0)
+            StartCoroutine(ApplyGravityDelay());
+    }
+
+    private IEnumerator ApplyGravityDelay()
+    {
+        yield return new WaitForSeconds(0.3f);
+        IsBounced = false;
+    }
+
 }

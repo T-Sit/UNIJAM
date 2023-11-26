@@ -7,6 +7,8 @@ public class DesignSettings : MonoBehaviour
     public float AccelerationFactor;
     public float DeccelerationFactor;
     [Range(-2,0)] public float GravityFactor;
+    [Range(0, 2)] public float JumpFactor;
+    public float timeToApplyGravity;
     public float RotationTime;
 
     public LayerMask LayersToStay;
@@ -20,6 +22,7 @@ public class DesignSettings : MonoBehaviour
     public float DialogueWindowAppearingTime;
     public float ButtonClickedScale;
     public float ButtonClickScalingTime;
+
     private void Start()
     {
         if (Instance is null)

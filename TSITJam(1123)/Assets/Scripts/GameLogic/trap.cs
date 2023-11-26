@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Trap : MonoBehaviour
+public class trap : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other){
         if(other.CompareTag("Player")){

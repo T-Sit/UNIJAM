@@ -429,6 +429,74 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 332643288}
   m_CullTransparentMesh: 1
+--- !u!1001 &339237491
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4354035972867962709, guid: 3315035ad0adec6438b0d380d8f9ae21,
+        type: 3}
+      propertyPath: m_Name
+      value: InteractableObject
+      objectReference: {fileID: 0}
+    - target: {fileID: 5784544629988091623, guid: 3315035ad0adec6438b0d380d8f9ae21,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.44
+      objectReference: {fileID: 0}
+    - target: {fileID: 5784544629988091623, guid: 3315035ad0adec6438b0d380d8f9ae21,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 6.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 5784544629988091623, guid: 3315035ad0adec6438b0d380d8f9ae21,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5784544629988091623, guid: 3315035ad0adec6438b0d380d8f9ae21,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5784544629988091623, guid: 3315035ad0adec6438b0d380d8f9ae21,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5784544629988091623, guid: 3315035ad0adec6438b0d380d8f9ae21,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5784544629988091623, guid: 3315035ad0adec6438b0d380d8f9ae21,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5784544629988091623, guid: 3315035ad0adec6438b0d380d8f9ae21,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5784544629988091623, guid: 3315035ad0adec6438b0d380d8f9ae21,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5784544629988091623, guid: 3315035ad0adec6438b0d380d8f9ae21,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3315035ad0adec6438b0d380d8f9ae21, type: 3}
 --- !u!1 &353814453
 GameObject:
   m_ObjectHideFlags: 0
@@ -709,6 +777,7 @@ GameObject:
   - component: {fileID: 585726875}
   - component: {fileID: 585726874}
   - component: {fileID: 585726873}
+  - component: {fileID: 585726876}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -779,7 +848,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 585726874}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 585726876}
+        m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
+        m_MethodName: RestartLevel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &585726874
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -818,6 +899,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 585726871}
   m_CullTransparentMesh: 1
+--- !u!114 &585726876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 585726871}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 835c5c3fcbc669f49aa87682f587a8f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &753535145
 GameObject:
   m_ObjectHideFlags: 0
@@ -2038,7 +2131,6 @@ MonoBehaviour:
   DeccelerationFactor: 5
   GravityFactor: -1.2
   RotationTime: 1
-  FootScanRadius: 0.5
   LayersToStay:
     serializedVersion: 2
     m_Bits: 72
@@ -2050,6 +2142,9 @@ MonoBehaviour:
     m_Bits: 64
   MinPickupAngle: 0
   MaxPickupAngle: 0
+  DialogueWindowAppearingTime: 0.5
+  ButtonClickedScale: 0.8
+  ButtonClickScalingTime: 0.2
 --- !u!1001 &1742008607
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2244,3 +2339,4 @@ SceneRoots:
   - {fileID: 976934007}
   - {fileID: 935978692}
   - {fileID: 316556939}
+  - {fileID: 339237491}

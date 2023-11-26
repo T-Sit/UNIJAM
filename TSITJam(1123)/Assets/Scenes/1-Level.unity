@@ -11735,6 +11735,7 @@ MonoBehaviour:
     m_Bits: 64
   MinPickupAngle: -50
   MaxPickupAngle: 50
+  DialogueWindowAppearingTime: 0.5
 --- !u!4 &1473537989
 Transform:
   m_ObjectHideFlags: 0

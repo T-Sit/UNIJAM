@@ -17,6 +17,7 @@ public class DesignSettings : MonoBehaviour
     public LayerMask ItemsLayer;
     public float MinPickupAngle;
     public float MaxPickupAngle;
+    public float DialogueWindowAppearingTime;
     private void Start()
     {
         if (Instance is null)

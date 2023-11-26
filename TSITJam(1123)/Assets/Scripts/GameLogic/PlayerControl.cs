@@ -5,11 +5,9 @@ public class PlayerControl : Freezable
 {
     private float _lastLevelRotation;
     [SerializeField] private Rotator rotator;
-    private Vector3 _baseEu = new(0, 0, 0);
-    [SerializeField] private Transform _footPoint;
-    private Vector3 _rightRot = new(0, 0, 0);
-    private Vector3 _leftRot = new(0, 180, 0);
-    private float _yScalingVelocity;
+    private Vector3 _baseEu = new(0, 180, 0);
+    private Vector3 _rightRot = new(0, 90, 0);
+    private Vector3 _leftRot = new(0, -90, 0);
     private PlayerItemController _playerItemController;
 
     private const float c_CheckNotZeroVelocity = 0.1f;
@@ -23,8 +21,10 @@ public class PlayerControl : Freezable
         _playerItemController = GetComponent<PlayerItemController>();
         _playerWalk = AudioManager.Instance.CreateEventInstance(FMODEvents.Instance.FootSteps);
     }
-    void Update()
+
+    protected override void Update()
     {
+        base.Update();
         DoMovement();
         DoPlayerRotation();
         DoPickUpCheck();
@@ -35,7 +35,7 @@ public class PlayerControl : Freezable
 
     private void DoPickUpCheck()
     {
-        if (!_isFreezed && IsGrounded)
+        if (!_isFreezed && IsGrounded())
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
@@ -59,10 +59,10 @@ public class PlayerControl : Freezable
 
     private void DoLevelRotation()
     {
-        if ((IsGrounded
+        if ((IsGrounded()
             && !_isFreezed)
-            || (Time.time <= _lastLevelRotation  + DesignSettings.Instance.RotationTime+ DesignSettings.Instance.RotationTimeRange/2
-            && Time.time >= _lastLevelRotation + DesignSettings.Instance.RotationTime-+ DesignSettings.Instance.RotationTimeRange/2))
+            || (Time.time <= _lastLevelRotation + DesignSettings.Instance.RotationTime + DesignSettings.Instance.RotationTimeRange / 2
+            && Time.time >= _lastLevelRotation + DesignSettings.Instance.RotationTime - +DesignSettings.Instance.RotationTimeRange / 2))
         {
             if (Input.GetKey(KeyCode.Q))
             {
@@ -83,7 +83,7 @@ public class PlayerControl : Freezable
 
     private void DoPlayerRotation()
     {
-        if (!_isFreezed && IsGrounded)
+        if (!_isFreezed && IsGrounded())
         {
             float x = Input.GetAxisRaw("Horizontal");
             if (x > 0)
@@ -101,24 +101,19 @@ public class PlayerControl : Freezable
     {
         if (!_isFreezed)
         {
-            if (IsGrounded)
+            if (IsGrounded())
             {
-                _yScalingVelocity = 0;
                 Vector3 movement = CalculateMovement();
                 _rb.AddForce(movement, ForceMode.Force);
             }
             else
             {
-                float yVelocity = DesignSettings.Instance.GravityFactor;
-                _yScalingVelocity += yVelocity;
-                _rb.velocity = new Vector3(0, _yScalingVelocity, 0);
+
             }
         }
     }
 
-    private bool IsGrounded => Physics.OverlapSphere(_footPoint.position,
-                                                     DesignSettings.Instance.FootScanRadius,
-                                                     DesignSettings.Instance.LayersToStay).Length != 0;
+
 
     private Vector3 CalculateMovement()
     {
@@ -136,7 +131,7 @@ public class PlayerControl : Freezable
             return;
         }
 
-        if (Mathf.Abs(_rb.velocity.x) >= c_CheckNotZeroVelocity && IsGrounded)
+        if (Mathf.Abs(_rb.velocity.x) >= c_CheckNotZeroVelocity && IsGrounded())
         {
             PLAYBACK_STATE playbackState;
             _playerWalk.getPlaybackState(out playbackState);
@@ -153,16 +148,15 @@ public class PlayerControl : Freezable
         }
     }
 
-    public void StopFootsteps() 
+    public void StopFootsteps()
         => _playerWalk.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
 
     private void PredictGroundFall()
     {
-        if (_rb.velocity.y < -c_CheckNotZeroVelocity && IsGrounded && (Time.time - _groundPredictionTiming >= c_GroundPredictionDelay))
+        if (_rb.velocity.y < -c_CheckNotZeroVelocity && IsGrounded() && (Time.time - _groundPredictionTiming >= c_GroundPredictionDelay))
         {
             _groundPredictionTiming = Time.time;
             AudioManager.Instance.PlayOneShot(FMODEvents.Instance.PlayerFall);
-        } 
+        }
     }
-
 }

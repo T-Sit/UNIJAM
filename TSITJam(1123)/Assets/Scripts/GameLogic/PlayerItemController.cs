@@ -39,10 +39,9 @@ public class PlayerItemController : MonoBehaviour
     }
     private bool CanPickUp(Collider c)
     {
-        Debug.Log("kek");
         Vector3 p = c.transform.position - transform.position;
-        return Mathf.Tan(Mathf.Deg2Rad * DesignSettings.Instance.MinPickupAngle) <= p.y / p.x
-               && Mathf.Tan(Mathf.Deg2Rad * DesignSettings.Instance.MaxPickupAngle) >= p.y / p.x
-               && p.x * transform.forward.x >= 0;
+        return Mathf.Tan(Mathf.Deg2Rad * DesignSettings.Instance.MinPickupAngle) <= p.y / p.x       // Min angle check
+               && Mathf.Tan(Mathf.Deg2Rad * DesignSettings.Instance.MaxPickupAngle) >= p.y / p.x    // Max angle check
+                && p.x * transform.forward.x >= 0; // object position and sight along x are both positive or both negative
     }
 }

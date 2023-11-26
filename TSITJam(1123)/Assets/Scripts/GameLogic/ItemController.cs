@@ -3,7 +3,6 @@ using UnityEngine;
 public class ItemController : Freezable
 {
     [SerializeField] private Transform _groundChecker;
-    private float _yScalingVelocity;
     private bool _isInHands = false;
     private Transform _oldParent;
     private BoxCollider _collider;
@@ -14,8 +13,9 @@ public class ItemController : Freezable
         _collider = GetComponent<BoxCollider>();
     }
 
-    private void Update()
+    override protected void Update()
     {
+        base.Update();
         if (_isInHands)
         {
             transform.localPosition = DesignSettings.Instance.ItemsLocalPosition;
@@ -47,26 +47,5 @@ public class ItemController : Freezable
         _rb.useGravity = true;
         _collider.enabled = true;
     }
-
-    //private void ApplyGravity()
-    //{
-    //    if (!_isFreezed)
-    //    {
-    //        if (IsGrounded)
-    //        {
-    //            _yScalingVelocity = 0;
-    //        }
-    //        else
-    //        {
-    //            float yVelocity = DesignSettings.Instance.GravityFactor;
-    //            _yScalingVelocity += yVelocity;
-    //            _rb.velocity = new Vector3(0, _yScalingVelocity, 0);
-    //        }
-    //    }
-    //}
-
-    private bool IsGrounded => Physics.OverlapSphere(_groundChecker.position,
-                                                     DesignSettings.Instance.FootScanRadius,
-                                                     DesignSettings.Instance.LayersToStay).Length != 0;
 
 }

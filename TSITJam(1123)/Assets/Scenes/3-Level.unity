@@ -9109,7 +9109,7 @@ PrefabInstance:
     - target: {fileID: 4560733420170323017, guid: 360660271b5aaf044b0085a704d4e6b4,
         type: 3}
       propertyPath: BounceFactor
-      value: 0.9
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7025274651839595770, guid: 360660271b5aaf044b0085a704d4e6b4,
         type: 3}

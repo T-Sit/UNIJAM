@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17903988, g: 0.21851942, b: 0.27333325, a: 1}
+  m_IndirectSpecularColor: {r: 0.17903961, g: 0.21851918, b: 0.2733326, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -9018,13 +9018,12 @@ MonoBehaviour:
   MoveSpeed: 45
   AccelerationFactor: 1
   DeccelerationFactor: 5
-  GravityFactor: -0.8
-  JumpFactor: 2
+  Gravity: 40
   timeToApplyGravity: 0.2
   RotationTime: 1
   LayersToStay:
     serializedVersion: 2
-    m_Bits: 72
+    m_Bits: 200
   RotationTimeRange: 0.2
   ItemsLocalPosition: {x: 0, y: 1, z: 3}
   PickUpDistance: 1
@@ -9036,6 +9035,9 @@ MonoBehaviour:
   DialogueWindowAppearingTime: 0.5
   ButtonClickedScale: 0.8
   ButtonClickScalingTime: 0.3
+  LayersToBounce:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!1001 &1371557296
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9048,6 +9050,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: jumper 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2548093133677130729, guid: 360660271b5aaf044b0085a704d4e6b4,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2888906985936234835, guid: 360660271b5aaf044b0085a704d4e6b4,
         type: 3}
@@ -9098,6 +9105,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4560733420170323017, guid: 360660271b5aaf044b0085a704d4e6b4,
+        type: 3}
+      propertyPath: BounceFactor
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 7025274651839595770, guid: 360660271b5aaf044b0085a704d4e6b4,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8121230154877155248, guid: 360660271b5aaf044b0085a704d4e6b4,
         type: 3}

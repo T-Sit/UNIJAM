@@ -10,6 +10,6 @@ public class JumperAnimation : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        _animator.SetTrigger("Bounce");
+        // _animator.SetTrigger("Bounce"); FIXME
     }
 }

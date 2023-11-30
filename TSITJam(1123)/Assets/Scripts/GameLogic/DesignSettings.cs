@@ -6,8 +6,7 @@ public class DesignSettings : MonoBehaviour
     public float MoveSpeed;
     public float AccelerationFactor;
     public float DeccelerationFactor;
-    [Range(-2,0)] public float GravityFactor;
-    [Range(0, 2)] public float JumpFactor;
+    public float Gravity;
     public float timeToApplyGravity;
     public float RotationTime;
 
@@ -23,7 +22,9 @@ public class DesignSettings : MonoBehaviour
     public float ButtonClickedScale;
     public float ButtonClickScalingTime;
 
-    private void Start()
+    public LayerMask LayersToBounce;
+
+    private void Awake()
     {
         if (Instance is null)
         {

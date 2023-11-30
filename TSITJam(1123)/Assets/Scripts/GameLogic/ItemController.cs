@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class ItemController : Freezable
 {
-    [SerializeField] private Transform _groundChecker;
     private bool _isInHands = false;
     private Transform _oldParent;
     private BoxCollider _collider;
@@ -46,6 +45,7 @@ public class ItemController : Freezable
         transform.localScale = Vector3.one;
         _rb.useGravity = true;
         _collider.enabled = true;
+        _yVel = 0;
     }
 
 }
